@@ -15,10 +15,16 @@ import steamcontroller
 # import InputDevice, ecodes
 
 # This should be the path to the current directory
-try:
-    base = os.path.dirname(os.path.realpath(__file__))
-except:
-    base = '/home/bbales2/keyboard'
+base = os.path.dirname(os.path.realpath(__file__))
+
+if not os.path.exists(os.path.join(base, '345.txt')):
+    import urllib2
+    print "Corpora doesn't exist... Downloading {0}".format('http://www.gutenberg.org/ebooks/345.txt.utf-8')
+    url = urllib2.urlopen('http://www.gutenberg.org/ebooks/345.txt.utf-8')
+    f = open(os.path.join(base, '345.txt'), 'w')
+    f.write(url.read())
+    f.close()
+    print "Download finished"
 
 print "Building dictionary"
 sys.stdout.flush()
