@@ -30,7 +30,7 @@ print "Building dictionary"
 sys.stdout.flush()
 
 #Import our dictionary
-f = open(os.path.join(base, '345.txt'))
+f = open(os.path.join(base, '3456.txt'))
 data = unicode(f.read(), 'utf-8')
 #print data
 tokens = nltk.word_tokenize(data)
@@ -222,6 +222,13 @@ def handle(_, sci):
     global lastAbutton
     global lpadSamples
     global rpadSamples
+
+    wsx, wsy = 640, 320
+
+    lpx, lpy = (0x8000+sci.lpad_x*12//10)*wsx//(0x1fffe), (0x8000-sci.lpad_y*12//10)*wsy//(0xffff)
+    rpx, rpy = (0x18000+sci.rpad_x*12//10)*wsx//(0x1fffe), (0x8000-sci.rpad_y*12//10)*wsy//(0xffff)
+
+    print lpx, lpy, rpx, rpy
     
     lpad = bool(steamcontroller.SCButtons.LPADTOUCH.value & sci.buttons)
     rpad = bool(steamcontroller.SCButtons.RPADTOUCH.value & sci.buttons)
